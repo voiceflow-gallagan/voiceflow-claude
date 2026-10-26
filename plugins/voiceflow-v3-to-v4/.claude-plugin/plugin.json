@@ -1,6 +1,6 @@
 {
   "name": "voiceflow-v3-to-v4",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Rebuild a Voiceflow v3 project (.vf export) as a v4 agent: audit, redesign plan, build through the Voiceflow MCP or the vf CLI.",
   "author": {
     "name": "voiceflow-gallagan"

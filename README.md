@@ -22,9 +22,10 @@ does that rebuild with you:
    when you have a terminal. Your v3 project is never modified.
 4. **Verify.** Runs test conversations for each former intent and writes a migration report.
 
-Status: **0.1.0**. The audit is tested on chat and voice exports with schema versions 4 to 13.
-The build phase is guided by the skill and still being tested; review the result in the
-Creator before publishing.
+Status: **0.2.0**. The audit is tested on chat and voice exports with schema versions 4 to 13.
+The build phase has been tested end to end on a chat banking demo (4 topics, 2 components,
+8 intents rebuilt as 4 playbooks; 14 of 14 routing tests passed). Voice projects and API-heavy
+projects are not tested yet. Review the result in the Creator before publishing.
 
 ## Install
 

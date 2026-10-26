@@ -75,23 +75,41 @@ signed in, the equivalent `vf` commands work too. Build in this order and stop o
 error you cannot explain:
 
 1. `voiceflow_project` create (workspace chosen by the user) and note the project ID.
-2. `voiceflow_variable` create the variables.
+   Then `voiceflow_agent` get: a new project comes with a template global prompt and with
+   the web search and knowledge base tools switched on. Replace the prompt and switch off
+   any tool the plan does not use.
+2. `voiceflow_variable` create_many. Give every variable an explicit default (`""` if
+   nothing else): an unset variable resolves to `0` at runtime.
 3. `voiceflow_secret` create one empty secret per redacted credential.
 4. `voiceflow_api_tool` / `voiceflow_function` create the tools; reference secrets, never
    literal values.
-5. `voiceflow_playbook` create each playbook with its instructions and attach its tools
-   (`voiceflow_tool`).
+5. `voiceflow_playbook` create_many, then attach each playbook's tools (`voiceflow_tool`).
+   Write each description as WHAT it does plus WHEN to route there.
 6. `voiceflow_workflow` create each workflow (faithful mode, or deterministic tasks).
-7. `voiceflow_agent` update the global prompt and routing instructions.
-8. `voiceflow_document` add the knowledge base sources the user gave you.
-9. `voiceflow_environment` compile.
+7. `voiceflow_agent` update with the global prompt and the `playbooks` / `workflows`
+   registry **first**, then a second update with the routing instructions. Backticked
+   names in the instructions only link to targets that were registered before the call;
+   in the same call they stay plain text (reported as `unresolvedMentions`).
+8. `voiceflow_document` add the knowledge base sources the user gave you, then switch the
+   knowledge base tool back on.
+9. `voiceflow_environment` compile. Compile again after every later edit.
+
+Gotchas seen in testing:
+
+- Consecutive `>` callout lines are stored as one quote: only the first line keeps its `>`.
+  Before `patch_instructions`, copy `oldString` from `search_instructions`, not from what
+  you sent.
+- When a playbook ends by asking "anything else?" and hands back, the main agent may ask
+  again. Add an instruction rule against repeating the closing question.
 
 Keep a build log (what was created, IDs, anything skipped) in the work directory.
 
 ## Phase 4: Verify and report
 
-1. For each test case, run a test conversation (`voiceflow_conversation`) and record which
-   skill answered.
+1. Run the test cases with `voiceflow_conversation` run_script (up to 10 messages per
+   script, draft version). Each turn lists the tool calls: `transfer_to_playbook_<name>`
+   shows which skill answered. Cover each intent, a multi-step path (edit, cancel), an
+   out-of-scope question and a goodbye. Use `send` when the next message depends on the reply.
 2. Write `<name>.migration-report.md`: what was rebuilt, routing test results, secrets the
    user must fill, KB sources still missing, and the manual review list from the audit.
 3. Tell the user what to check in the Creator before publishing. Do not publish for them.
