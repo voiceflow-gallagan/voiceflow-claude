@@ -1,0 +1,15 @@
+# Never commit Voiceflow exports or anything generated from them
+*.vf
+*.audit.md
+*.ir.json
+*.migration-report.md
+*.plan.md
+samples/
+audits/
+work/
+
+# OS / editor
+.DS_Store
+__pycache__/
+*.pyc
+.env

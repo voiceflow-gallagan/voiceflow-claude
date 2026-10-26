@@ -1,0 +1,18 @@
+{
+  "name": "voiceflow-claude",
+  "owner": {
+    "name": "voiceflow-gallagan"
+  },
+  "metadata": {
+    "description": "Claude plugins for Voiceflow builders",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "voiceflow-v3-to-v4",
+      "source": "./plugins/voiceflow-v3-to-v4",
+      "description": "Rebuild a Voiceflow v3 project (.vf export) as a v4 agent: audit, redesign plan, build through the Voiceflow MCP or the vf CLI.",
+      "category": "productivity"
+    }
+  ]
+}

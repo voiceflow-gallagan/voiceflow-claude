@@ -1,0 +1,12 @@
+{
+  "name": "voiceflow-v3-to-v4",
+  "version": "0.1.0",
+  "description": "Rebuild a Voiceflow v3 project (.vf export) as a v4 agent: audit, redesign plan, build through the Voiceflow MCP or the vf CLI.",
+  "author": {
+    "name": "voiceflow-gallagan"
+  },
+  "homepage": "https://github.com/voiceflow-gallagan/voiceflow-claude",
+  "repository": "https://github.com/voiceflow-gallagan/voiceflow-claude",
+  "license": "MIT",
+  "keywords": ["voiceflow", "migration", "v3", "v4", "agent"]
+}
